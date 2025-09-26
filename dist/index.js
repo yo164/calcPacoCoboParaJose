@@ -1,6 +1,6 @@
 "use strict";
 let currentInput = '0';
-let operator = '';
+var operator = '';
 let previousInput = '';
 let numeroEnMemoria = '';
 function appendToDisplay(value) {
@@ -65,8 +65,8 @@ function deleteLast() {
     }
     updateDisplay();
 }
-function calculate() {
-    if (previousInput !== '' && currentInput !== '' && operator !== '') {
+function calculate(calculatorAux) {
+    if (operator !== '' && currentInput !== '' && previousInput !== '') {
         const prev = parseFloat(previousInput);
         const current = parseFloat(currentInput);
         let result;
@@ -152,6 +152,66 @@ function calculate() {
             updateDisplay();
         }
     }
+    else if (calculatorAux !== '') {
+        const calcular = parseFloat(currentInput);
+        let result;
+        switch (calculatorAux) {
+            case '^2':
+                result = Math.pow(calcular, 2);
+                break;
+            case 'v2':
+                result = Math.sqrt(calcular);
+                break;
+            case '-1':
+                result = calcular * -1;
+                break;
+            case 'log2':
+                result = Math.log2(calcular);
+                break;
+            case 'log10':
+                result = Math.log10(calcular);
+                break;
+            case 'ln':
+                result = Math.log(calcular);
+                break;
+            case 'abs':
+                result = Math.abs(calcular);
+                break;
+            case 'sen':
+                result = Math.sin(gradianes(calcular));
+                break;
+            case 'cos':
+                result = Math.cos(gradianes(calcular));
+                break;
+            case 'tan':
+                result = Math.tan(gradianes(calcular));
+                break;
+            case 'sec':
+                result = 1 / Math.cos(gradianes(calcular));
+                break;
+            case 'cosec':
+                result = 1 / Math.sin(gradianes(calcular));
+                break;
+            case 'cotan':
+                result = 1 / Math.tan(gradianes(calcular));
+                break;
+            //hasta aqui
+            default:
+                return;
+        }
+        if (result === Infinity || Number.isNaN(result)) {
+            currentInput = 'ERROR';
+            operator = '';
+            previousInput = '';
+            updateDisplay();
+        }
+        else {
+            currentInput = result.toString();
+            operator = '';
+            previousInput = '';
+            updateDisplay();
+        }
+    }
 }
 document.addEventListener('DOMContentLoaded', () => {
     updateDisplay();
@@ -169,7 +229,47 @@ function setupEventListeners() {
                     //aqui es donde creo que tengo que tocar para decir que cuando haga por ejemplo
                     //algo al cuadrado solo dando al action del cuadrado entre en calculate teniendo ya 
                     //operator
-                    if (action === 'clear') {
+                    const signosInd = ['^2', 'v2', '-1', 'log2', 'log10', 'ln', 'abs', 'sen', 'cos', 'tan', 'sec', 'cosec', 'cotan'];
+                    if (action === '^2') {
+                        calculate(action);
+                    }
+                    else if (action === 'v2') {
+                        calculate(action);
+                    }
+                    else if (value === '-1') {
+                        calculate(value);
+                    }
+                    else if (value === 'log2') {
+                        calculate(value);
+                    }
+                    else if (value === 'log10') {
+                        calculate(value);
+                    }
+                    else if (value === 'ln') {
+                        calculate(value);
+                    }
+                    else if (value === 'abs') {
+                        calculate(value);
+                    }
+                    else if (value === 'sen') {
+                        calculate(value);
+                    }
+                    else if (value === 'cos') {
+                        calculate(value);
+                    }
+                    else if (value === 'tan') {
+                        calculate(value);
+                    }
+                    else if (value === 'sec') {
+                        calculate(value);
+                    }
+                    else if (value === 'cosec') {
+                        calculate(value);
+                    }
+                    else if (value === 'cotan') {
+                        calculate(value);
+                    }
+                    else if (action === 'clear') {
                         clearDisplay();
                     }
                     else if (action === 'delete') {
