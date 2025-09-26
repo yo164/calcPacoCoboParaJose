@@ -8,7 +8,8 @@ declare function clearDisplay(): void;
 declare function deleteLast(): void;
 declare function calculate(calculatorAux?: String): void;
 declare function setupEventListeners(): void;
-declare function memorizarNumero(action: string): void;
+declare function memorizarNumero(value: string): void;
 declare function logNdX(base: number, numero: number): number;
 declare function gradianes(angulo: number): number;
+declare function iniciarReloj(): void;
 //# sourceMappingURL=index.d.ts.map

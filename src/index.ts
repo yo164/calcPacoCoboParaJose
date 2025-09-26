@@ -33,7 +33,6 @@ function appendToDisplay(value: string): void {
 
 function updateDisplay(): void {
     const display = document.getElementById('display') as HTMLInputElement;
-    const checkNumer = currentInput;
     if (currentInput === 'pi') {
         const piNumero = Math.PI;
         currentInput = piNumero.toString()
@@ -69,11 +68,10 @@ function deleteLast(): void {
 }
 
 function calculate(calculatorAux?:String): void {
-    if (operator !== '' && currentInput !== '' && previousInput !== '' ) {
-        const prev = parseFloat(previousInput);
+    const prev = parseFloat(previousInput);
         const current = parseFloat(currentInput);
-        let result: number;
-        
+        let result: number =0;
+    if (operator !== '' && currentInput !== '' && previousInput !== '' ) {
         switch (operator) {
             case '+':
                 result = prev + current;
@@ -90,78 +88,21 @@ function calculate(calculatorAux?:String): void {
             case '/':
                 result = prev / current; 
                 break;
-            
-                //estos deben ser resultado directo nada maspulsar boton de los de exponente fijo o base fija(logaritmos)
-            case '^2':
-                result = Math.pow(prev, 2); 
-                break;
             case '^n':
                 result = Math.pow(prev, current); 
-                break;
-            case 'v2':
-                result = Math.sqrt(prev) 
                 break;
             case 'vn':
                 result = Math.pow(prev, (1 / current)); 
                 break;
-            case '-1':
-                result = prev * -1; 
-                break;
-            case 'log2':
-                result = Math.log2(prev); 
-                break;
-            case 'log10':
-                result = Math.log10(prev); 
-                break;
             case 'logn(X)':
                 result = logNdX(prev, current); 
-                break;
-            case 'ln':
-                result = Math.log(prev); 
-                break;
-            case 'abs':
-                result = Math.abs(prev); 
-                break;
-            case 'sen':
-                result = Math.sin(gradianes(prev)); 
-                break;
-            case 'cos':
-                result = Math.cos(gradianes(prev)); 
-                break;
-            case 'tan':
-                result = Math.tan(gradianes(prev)); 
-                break;
-            case 'sec':
-                result = 1 / Math.cos(gradianes(prev)); 
-                break;
-            case 'cosec':
-                result = 1 / Math.sin(gradianes(prev)); 
-                break;
-            case 'cotan':
-                result = 1 / Math.tan(gradianes(prev)); 
                 break;
                 //hasta aqui
             default:
                 return;
         } 
-        
-
-
-        if (result === Infinity || Number.isNaN(result) ) {
-        currentInput = 'ERROR';
-        operator = '';
-        previousInput = '';
-        updateDisplay();
-        } else {
-        currentInput = result.toString();
-        operator = '';
-        previousInput = '';
-        updateDisplay();
-        }  
     } else if(calculatorAux !== '') {
         const calcular = parseFloat(currentInput);
-        let result: number;
-        
         switch (calculatorAux) {
            
             case '^2':
@@ -210,23 +151,24 @@ function calculate(calculatorAux?:String): void {
             default:
                 return;
         } 
-        if (result === Infinity || Number.isNaN(result) ) {
-            currentInput = 'ERROR';
-            operator = '';
-            previousInput = '';
-            updateDisplay();
-            } else {
-            currentInput = result.toString();
-            operator = '';
-            previousInput = '';
-            updateDisplay();
-            }  
     }
+        if (result === Infinity || Number.isNaN(result) ) {
+        currentInput = 'ERROR';
+        operator = '';
+        previousInput = '';
+        updateDisplay();
+        } else {
+        currentInput = result.toString();
+        operator = '';
+        previousInput = '';
+        updateDisplay();
+        }  
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     updateDisplay();
     setupEventListeners();
+    iniciarReloj();
 });
 
 function setupEventListeners(): void {
@@ -244,12 +186,10 @@ function setupEventListeners(): void {
                 //aqui es donde creo que tengo que tocar para decir que cuando haga por ejemplo
                 //algo al cuadrado solo dando al action del cuadrado entre en calculate teniendo ya 
                 //operator
-                const signosInd =  ['^2', 'v2', '-1', 'log2', 'log10', 'ln', 'abs', 'sen', 'cos', 'tan', 'sec', 'cosec', 'cotan'];
-
-                    if (action === '^2'){
-                        calculate(action);
-                    }else  if (action === 'v2'){
-                        calculate(action);
+                    if (value === '^2'){
+                        calculate(value);
+                    }else  if (value === 'v2'){
+                        calculate(value);
                     }else  if (value === '-1'){
                         calculate(value);
                     }else  if (value === 'log2'){
@@ -272,17 +212,17 @@ function setupEventListeners(): void {
                         calculate(value);
                     }else  if (value === 'cotan'){
                         calculate(value);
-                    }else if (action === 'clear') {
+                    }else if (value === 'clear') {
                         clearDisplay();
-                    } else if (action === 'delete') {
+                    } else if (value === 'delete') {
                         deleteLast();
-                    } else if (action === 'calculate') {
+                    } else if (value === 'calculate') {
                         calculate();
+                    }else if (action === 'mr' || action === 'm') {
+                        //variable igual a lo que valga en ese momento currentInput
+                        memorizarNumero(action);
                     } else if (value) {
                         appendToDisplay(value);
-                    }else if (action === 'mr' || action === 'm') {
-                        //variable igual a lo que valga enese momento currentInput
-                        memorizarNumero(action);
                     }else if (value && action) {
                     
                         calculate();
@@ -294,9 +234,9 @@ function setupEventListeners(): void {
     }
 }
 
-function memorizarNumero(action: string) {
+function memorizarNumero(value: string) {
     
-    if (action === 'mr') {
+    if (value === 'mr') {
          numeroEnMemoria = currentInput;
         
     }else{
@@ -313,6 +253,19 @@ function logNdX(base: number, numero: number): number {
 function gradianes(angulo: number): number{
     return angulo/(Math.PI/180);
 }
+function iniciarReloj(): void {
+    const horaElemento = document.getElementById('hora');
+    if (!horaElemento) return;
+    function actualizarHora() {
+        const ahora = new Date();
+        if (horaElemento) {
+            horaElemento.textContent = ahora.toLocaleTimeString();
+        }
+    }
+    actualizarHora(); 
+    setInterval(actualizarHora, 1000); 
+}
+
 //REVISA QUE CUANDO TENGAS UN NUMERO Y PRESIONES UN NUMERO IRREAL LO SUSTITUYA POR EL VALOR DEL NUEMRO IRREAL
 // YT NO AÑADA EL DATA-VALUE(MIRA EL LA PARTE QUE CONTROLA VALOR Y ACCION DE CADA BOTON Y PON UN ACONCICION DE SI
 //VALOR === PI ENTONCES UPDATEDISPLAY A VER QUE HACE)
