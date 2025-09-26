@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora TypeScript</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/png" href="calculator-icon_34473.png">
+</head>
+<body>
+  <div class="calculator">
+    <div class="display">
+      <div class="details">
+        <div class="suncell">
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+      </div>
+      <img src="casio-logo-png-transparent.png" alt="">
+      </div>
+      
+      <input type="text" id="display" readonly>
+    </div>
+    <div class="buttons sci">
+      <button class="btn mr" data-action="mr">MR</button>
+      <button class="btn mr" data-action="m">M</button>
+      <button class="btn mr irr" data-value="pi">π</button>
+      <button class="btn mr irr" data-value="e">e</button>
+      <button class="btn mr irr" data-value="phi">Φ</button>
+      <button class="btn operator sci" data-action="^2" data-value="^2">^2</button>
+      <button class="btn operator sci" data-value="^n">^N</button>
+      <button class="btn operator sci" data-action="v2" data-value="v2">V2</button>
+      <button class="btn operator sci" data-value="vn">Vn</button>
+      <button class="btn operator sci" data-value="log10">Log10</button>
+      <button class="btn operator sci" data-value="log2">Log2</button>
+      <button class="btn operator sci" data-value="logn(X)">Logn(X)</button>
+      
+      <button class="btn operator sci" data-value="abs">ABS</button>
+      <button class="btn operator sci" data-value="-1">-n</button>
+      <button class="btn operator tri" data-value="sen">sen</button>
+      <button class="btn operator tri" data-value="cos">cos</button>
+      <button class="btn operator tri" data-value="tan">tan</button>
+      <button class="btn operator tri" data-value="sec">sec</button>
+      <button class="btn operator tri" data-value="cosec">cosec</button>
+      <button class="btn operator tri" data-value="cotan">cotan</button><!-- añadir log1p que es el neperiano en ts tambien logaritmo con base elegible-->
+      
+    </div>
+    <div class="buttons tri">
+      
+    </div>
+    <div class="buttons">
+      <button class="btn clear" data-action="clear">C</button>
+      <button class="btn operator" data-action="delete">⌫</button>
+      <button class="btn operator" data-value="%">%</button>
+      <button class="btn operator" data-value="/">/</button>
+      
+      <button class="btn number" data-value="7">7</button>
+      <button class="btn number" data-value="8">8</button>
+      <button class="btn number" data-value="9">9</button>
+      <button class="btn operator" data-value="*">×</button>
+
+
+      
+      <button class="btn number" data-value="4">4</button>
+      <button class="btn number" data-value="5">5</button>
+      <button class="btn number" data-value="6">6</button>
+      <button class="btn operator" data-value="-">-</button>
+      
+      
+      <button class="btn number" data-value="1">1</button>
+      <button class="btn number" data-value="2">2</button>
+      <button class="btn number" data-value="3">3</button>
+      <button class="btn operator" data-value="+">+</button>
+      
+      
+      <button class="btn number zero" data-value="0">0</button>
+      <button class="btn number" data-value=".">.</button>
+      <button class="btn equals" data-action="calculate" rowspan="2">=</button>
+    </div>
+  </div>
+  <script src="index.js"></script>
+</body>
+</html>
